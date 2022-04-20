@@ -30,7 +30,7 @@
                 Manage User
               </h5>
               <p class="mb-0 font-weight-bold text-sm">
-                Create new user
+                [[${pageTitle}]]
               </p>
             </div>
           </div>
@@ -49,12 +49,13 @@
           <div class="card">
             <div class="card-header pb-0">
               <div class="d-flex align-items-center">
-                <p class="mb-0">Create</p>
+                <p class="mb-0">[[${subpageTitle}]]</p>
               </div>
             </div>
             <div class="card-body">
               <div >
-                  <form class="row" th:action="@{/users/save}" method="POST" th:object="${user}">
+                  <form class="row" th:action="@{/users/save}" method="POST" th:object="${user}" onsubmit="return checkEmailUnique(this);">
+                      <input type="hidden" th:field="*{id}" />
                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="example-text-input" class="form-control-label">First Name</label>
@@ -76,7 +77,11 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="example-text-input" class="form-control-label">Password</label>
-                          <input class="form-control" th:field="*{password}" type="text"  required minlength="8" maxlength="20">
+                          <input  th:if="${user.id == null}" class="form-control" 
+                          th:field="*{password}" type="password"  required minlength="8" maxlength="20">
+
+                          <input  th:if="${user.id != null}" class="form-control" 
+                          th:field="*{password}" type="password"   minlength="8" maxlength="20">
                         </div>
                       </div>
                       <div class="col-md-6">
@@ -204,6 +209,35 @@
       </footer>
     </div>
   </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="modal-notification" tabindex="-1" role="dialog" aria-labelledby="modal-notification" aria-hidden="true">
+    <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="modal-title text-gradient text-danger" id="modal-title-notification"></h6>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="py-3 text-center">
+
+            <div style="color: #fbb140;">
+              <i class="fa-solid fa-circle-exclamation ni-3x"></i>
+            </div>
+            
+            <h4 class="text-gradient text-danger mt-4">You should read this!</h4>
+            <p id="modal-body-notification"></p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn bg-gradient-warning" data-bs-dismiss="modal">Ok, Got it</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div th:replace="fragments :: fixplugin"></div>
   <!--   Core JS Files   -->
   <div th:replace="fragments :: scriptTable"></div>
@@ -216,6 +250,35 @@
         window.location = "[[@{/users}]]"
       });
     })
+
+    function checkEmailUnique(form) {
+      url = "[[@{/users/check_email}]]";
+      userEmail = $("#email").val();
+      userId = $("#id").val();
+      csrfValue = $("input[name='_csrf']").val();
+
+      params = {id: userId,email: userEmail, _csrf: csrfValue};
+
+      $.post(url, params, function(response) {
+        if(response == "Ok") {
+          form.submit();
+        } else if (response == "Duplicated") {
+          showModalNotification("Warnning", "Email already exist: " +" "+ userEmail);
+        } else {
+          showModalNotification("Error", "Unknown response from server");
+        }
+      }).fail(function() {
+        showModalNotification("Error", "Could not connect to the server");
+      });
+
+      function showModalNotification(title, message) {
+          $("#modal-title-notification").text(title);
+          $("#modal-body-notification").text(message);
+          $("#modal-notification").modal("show");
+      }
+
+      return false;
+    }
   </script>
 </body>
 

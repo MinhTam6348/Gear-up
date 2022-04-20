@@ -20,7 +20,8 @@
             <div class="card-header pb-0">
               <div class="d-flex align-items-center">
                 <p class="mb-0">User Table</p>
-                <div th:if="${message != null}" class="alert alert-success alert-dismissible fade show" role="alert">
+                <!--  -->
+                <div th:if="${message != null}" class="alert alert-success alert-dismissible fade show toast-msg" role="alert">
                   <span class="alert-icon"><i class="fa-solid fa-thumbs-up"></i></span>
                   <span class="alert-text"><strong style="margin-right: 4px;">Success!</strong>[[${message}]]</span>
                   <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
@@ -65,18 +66,27 @@
                         <p class="text-xs text-secondary mb-0"></p>
                       </td>
                       <td class="align-middle text-center text-sm">
-                        <span class="badge badge-sm bg-gradient-success">[[${user.enabled}]]</span>
+                        <a th:href="@{'/users/' + ${user.id} + '/enabled/false'}" th:if="${user.enabled == true}" class="badge badge-sm bg-gradient-success" title="Disable this user "><i class="fa-solid fa-circle-check"></i></a>
+                        <a th:href="@{'/users/' + ${user.id} + '/enabled/true'}" th:if="${user.enabled == false}" class="badge badge-sm bg-gradient-warning" title="Enable this user"><i class="fa-solid fa-ban"></i></a>
                       </td>
                       <td class="align-middle text-center">
                         <span class="text-secondary text-xs font-weight-bold">23/04/18</span>
                       </td>
                       <td class="align-middle">
                        <div style="display: flex; justify-content: space-evenly;">
-                          <a href="javascript:;" class="font-weight-bold text-xs btn bg-gradient-info" data-toggle="tooltip" data-original-title="Edit user">
+                          <a th:href="@{'/users/edit/' + ${user.id}}" title="Edit this user" class="font-weight-bold text-xs btn bg-gradient-info" data-toggle="tooltip" data-original-title="Edit user">
+                            <i class="fa-solid fa-pen-to-square"></i>
                             Edit
                           </a>
-                          <a href="javascript:;" class="font-weight-bold text-xs btn bg-gradient-danger" data-toggle="tooltip" data-original-title="Edit user">
-                            Delete
+                          <a th:href="@{'/users/delete/' + ${user.id}}" 
+                             th:userId="${user.id}"
+                             title="Delete this user"
+                             class="font-weight-bold text-xs btn bg-gradient-danger link-delete" 
+                             data-toggle="tooltip" 
+                             data-original-title="Edit user">
+
+                            <i class="fa-solid fa-trash-can"></i>
+
                           </a>
                        </div>
                       </td>
@@ -126,6 +136,51 @@
   <div th:replace="fragments :: fixplugin"></div>
   <!--   Core JS Files   -->
   <div th:replace="fragments :: scriptTable"></div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="modal-notification" tabindex="-1" role="dialog" aria-labelledby="modal-notification" aria-hidden="true">
+    <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="modal-title text-gradient text-danger" id="modal-title-notification">Delete Confirmation</h6>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="py-3 text-center">
+
+            <div style="color: #fbb140;">
+              <i class="fa-solid fa-circle-exclamation ni-3x"></i>
+            </div>
+            
+            <h4 class="text-gradient text-danger mt-4" id="confirmText"></h4>
+            <p id="modal-body-notification"></p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <a type="button" class="btn bg-gradient-info btn-block" id="yesBtn">
+            Yes, just delete it
+          </a>
+          <button type="button" class="btn bg-gradient-secondary" data-bs-dismiss="modal">Cancel</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $(".link-delete").on("click", function(e){
+        e.preventDefault();
+        link = $(this);
+        //alert($(this).attr("href"));
+        userId = link.attr("userId");
+        $("#yesBtn").attr("href", link.attr("href"));
+        $("#confirmText").text("Are you sure want to delete this User?");
+        $("#modal-notification").modal("show");      
+      })
+    })
+  </script>
 </body>
 
 </html>

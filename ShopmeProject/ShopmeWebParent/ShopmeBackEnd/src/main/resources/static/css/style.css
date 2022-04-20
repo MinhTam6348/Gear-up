@@ -55,3 +55,10 @@
     align-items: center;
     margin-top: 20px;
 }
+
+.toast-msg {
+    position: fixed;
+    top: 32px;
+    right: 32px;
+    z-index: 999999;
+}
