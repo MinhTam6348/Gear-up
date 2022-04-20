@@ -1,0 +1,57 @@
+.icon-shape .top-13 {
+    top: 13px;
+}
+
+.select2-container--default .select2-selection--multiple {
+    display: block;
+    width: 100%;
+    font-size: 0.875rem;
+    font-weight: 400;
+    line-height: 1.4rem;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #d2d6da;
+    appearance: none;
+    border-radius: 0.5rem;
+    transition: box-shadow 0.15s ease, border-color 0.15s ease;
+}
+
+.select2-container--default.select2-container--focus .select2-selection--multiple {
+    border: 1px solid #d2d6da;
+
+}
+
+.select2-results__option--selectable {
+    font-size: 0.875rem;
+}
+
+.select2-container--default .select2-results__option--highlighted.select2-results__option--selectable {
+    background-color: #5e72e4;
+}
+
+.select2-search__field {
+    width: 100% !important;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__rendered li {
+    margin-left: 10px;
+}
+
+.select2-container--default .select2-selection--multiple .select2-selection__rendered {
+    padding: 0.2rem;
+}
+
+.select2-results__option {
+    font-size: 0.875rem;
+}
+
+.select2-container--default .select2-results__option--highlighted[aria-selected] {
+    background-color: #5e72e4;
+}
+
+.check-enable-user {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
