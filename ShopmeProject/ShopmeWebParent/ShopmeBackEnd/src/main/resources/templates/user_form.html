@@ -54,7 +54,7 @@
             </div>
             <div class="card-body">
               <div >
-                  <form class="row" th:action="@{/users/save}" method="POST" th:object="${user}" onsubmit="return checkEmailUnique(this);">
+                  <form class="row" th:action="@{/users/save}" method="POST" style="max-width: 700px;margin: 0 auto;" enctype="multipart/form-data" th:object="${user}" onsubmit="return checkEmailUnique(this);">
                       <input type="hidden" th:field="*{id}" />
                       <div class="col-md-6">
                         <div class="form-group">
@@ -100,6 +100,14 @@
                         <div class="form-check">
                           <input class="form-check-input" type="checkbox" th:field="*{enabled}" />
                           <label class="custom-control-label" for="customCheck1">Enable this user</label>
+                        </div>
+                      </div>
+                      <div class="col-md-6 check-enable-user">
+                        <div class="form-check">
+                          <label class="custom-control-label" for="customCheck1">Photos:</label>
+                          <input type="hidden" th:field=" *{photos}" />
+                          <input type="file" id="fileImage" name="image" accept="image/png ,image/jpeg" class="mb-2"/>
+                          <img id="thumbnail" alt="" th:src="@{/images/default-user.jpg}" class="img-fluid"/>
                         </div>
                       </div>
                       <div class="col-md-12">
@@ -249,8 +257,31 @@
       $("#buttonCancel").on("click", function() {
         window.location = "[[@{/users}]]"
       });
+      	
+      $("#fileImage").change(function() {
+        fileSize = this.files[0].size;
+        
+        
+        if(fileSize > 1048567) {
+        	this.setCustomValidity("You must choose an image less than 1MB !");
+        	this.reportValidity();
+        } else {
+        	this.setCustomValidity("");
+        	showImageThumbnail(this);
+        }
+      	
+      });
     })
 
+	function showImageThumbnail(fileInput) {
+		var file = fileInput.files[0];
+		var reader = new FileReader();
+		reader.onload = function(e){
+			$("#thumbnail").attr("src",e.target.result);
+		};
+		reader.readAsDataURL(file);
+	}
+	
     function checkEmailUnique(form) {
       url = "[[@{/users/check_email}]]";
       userEmail = $("#email").val();
