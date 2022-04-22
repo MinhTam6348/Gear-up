@@ -18,7 +18,7 @@ import com.shopme.common.entity.User;
 @Service
 @Transactional
 public class UserService {
-	public static final int USERS_PER_PAGE = 4;
+	public static final int USERS_PER_PAGE = 100;
 	@Autowired
 	private UserRepository userRepo;
 	

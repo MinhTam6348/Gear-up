@@ -34,16 +34,15 @@
             </div>
             <div class="card-body px-0 pt-0 pb-2">
               <div class="table-responsive p-0">
-                <table class="table align-items-center mb-0">
+                <table class="table align-items-center  mb-0" id="dataTable">
                   <thead>
                     <tr>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Id</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Photos</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">User</th>
-                      <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Role</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
-                      <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Employed</th>
-                      <th class="text-secondary opacity-7"></th>
+                      <th class="font-header-tables text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Id</th>
+                      <th class="font-header-tables text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">User</th>
+                      <th class="font-header-tables text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Role</th>
+                      <th class="font-header-tables text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Status</th>
+                      <th class="font-header-tables text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Date create</th>
+                      <th class="font-header-tables text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Action</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -52,18 +51,18 @@
                         <span class="text-secondary text-xs font-weight-bold">[[${user.id}]]</span>
                       </td>
                       <td>
-                      	<span th:if="${user.photos == null}" class="fas fa-portrait fa-3x icon silver" ></span>
-                        <img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}" style="width:100px"/>
-                      </td>
-                      <td>
                         <div class="d-flex px-2 py-1">
-                   
+                          <div>
+                            <img th:if="${user.photos == null}" th:src="@{/images/user-placeholder.jpg}" class="avatar avatar-sm me-3"/>
+                            <img th:if="${user.photos != null}" th:src="@{${user.photosImagePath}}" class="avatar avatar-sm me-3"/>
+                          </div>
                           <div class="d-flex flex-column justify-content-center">
                             <h6 class="mb-0 text-sm"><span>[[${user.firstname}]]</span> <span>[[${user.lastname}]]</span></h6>
                             <p class="text-xs text-secondary mb-0">[[${user.email}]]</p>
                           </div>
                         </div>
                       </td>
+                    
                       <td>
                         <p class="text-xs font-weight-bold mb-0">[[${user.roles}]]</p>
                         <p class="text-xs text-secondary mb-0"></p>
@@ -102,26 +101,26 @@
         </div>
       </div>
      
-     <div class="text-center m-1" th:if="${totalItems > 0}">
-		<span>Showing users # [[${startCount}]] to [[${endCount}]] of [[${totalItems}]]</span>
+     <!-- <div class="m-1" th:if="${totalItems > 0}">
+		<span>Showing [[${startCount}]] to [[${endCount}]] of [[${totalItems}]]</span>
 	</div>
 	<div class="text-center m-1" th:unless="${totalItems > 0}">
 		<span>No users found</span>
-	</div>
-	
+	</div> -->
+<!-- 	
 	<div>	
 		<nav aria-label="Page navigation example">
 		  <ul class="pagination justify-content-center">
 		    <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled'}">
-		      <a class="page-link" th:href="@{/users/page/1}">
+		      <a class="page-link" title="first" th:href="@{/users/page/1}">
 		        
-		        First
+            <i class="fa-solid fa-angles-left"></i>
 		      </a>
 		    </li>
 		    <li th:class="${currentPage > 1 ? 'page-item' : 'page-item disabled' }">
-		      <a class="page-link" th:href="@{'/users/page/' + ${currentPage - 1 }}" >
+		      <a class="page-link" title="previous" th:href="@{'/users/page/' + ${currentPage - 1 }}" >
 		        
-		        Previous
+            <i class="fa fa-angle-left"></i>
 		      </a>
 		    </li>
 		    <li th:class="${currentPage != i ? 'page-item' : 'page-item active'}" th:each="i : ${#numbers.sequence(1,totalPage)}">
@@ -129,21 +128,19 @@
 		    </li>
 		    
 		    <li th:class="${currentPage < totalPage ? 'page-item' : 'page-item disabled'}">
-		      <a class="page-link" th:href="@{'/users/page/' + ${ currentPage + 1}}">
-		        
-		        Next
+		      <a class="page-link" title="next" th:href="@{'/users/page/' + ${ currentPage + 1}}">
+		        <i class="fa fa-angle-right"></i>
 		      </a>
 		    </li>
 		    <li th:class="${currentPage < totalPage ? 'page-item' : 'page-item disabled'}">
-		      <a class="page-link" th:href="@{'/users/page/' + ${ totalPage}}">
-		        
-		        Last
+		      <a class="page-link" title="last" th:href="@{'/users/page/' + ${ totalPage}}">
+		        <i class="fa-solid fa-angles-right"></i>
 		      </a>
 		    </li>
 		  </ul>
 		</nav>
 	</div>
-     
+      -->
       <footer class="footer pt-3  ">
         <div class="container-fluid">
           <div class="row align-items-center justify-content-lg-between">
@@ -180,13 +177,6 @@
   </main>
   
   
-	
-  <div th:replace="fragments :: fixplugin"></div>
-  <!--   Core JS Files   -->
-  <div th:replace="fragments :: scriptTable"></div>
-
-	
-
   <!-- Modal -->
   <div class="modal fade" id="modal-notification" tabindex="-1" role="dialog" aria-labelledby="modal-notification" aria-hidden="true">
     <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
@@ -217,6 +207,13 @@
       </div>
     </div>
   </div>
+	
+  <div th:replace="fragments :: fixplugin"></div>
+  <!--   Core JS Files   -->
+  <div th:replace="fragments :: scriptTable"></div>
+
+	<div th:replace="fragments :: scriptTablesFuction"></div>
+
 
   <script type="text/javascript">
     $(document).ready(function() {
@@ -229,7 +226,19 @@
         $("#confirmText").text("Are you sure want to delete this User?");
         $("#modal-notification").modal("show");      
       })
+
     })
+    
+    // $("dataTable_length").attr("class", "col-md-6");
+    // $("dataTable_filter").attr("class", "col-md-6");
+
+    // window.onload = function()
+    // {
+    //   document.getElementById("dataTable_length").classList.add("col-md-6");
+    //   document.getElementById("dataTable_filter").classList.add("col-md-6");
+    // };
+
+
   </script>
 </body>
 

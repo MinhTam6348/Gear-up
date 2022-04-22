@@ -9,6 +9,9 @@
       Argon Dashboard 2 by Creative Tim
     </title>
 
+    <!-- Bootstrap -->
+    <link th:href="@{/css/dataTables.bootstrap4.min.css}" rel="stylesheet">
+    <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/jquery.dataTables.min.css"> -->
     <!-- Selector -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
@@ -475,5 +478,16 @@
             }
         </script>
       </div>
+
+
+      <div th:fragment="scriptTablesFuction" th:remove="tag">
+          <!-- Bootstrap core JavaScript-->
+          <script th:src="@{/js/vendor/jquery.min.js}"></script>
+          <!-- Page level plugins -->
+          <script th:src="@{/js/datatables/jquery.dataTables.min.js}"></script>
+          <!-- Page level custom scripts -->
+          <script th:src="@{/js/datatables/datatables-demo.js}"></script>
+      </div>
+     
 </body>
 </html>
