@@ -20,7 +20,7 @@
             <div class="card-header pb-0">
               <div class="d-flex align-items-center">
                 <p class="mb-0">User Table</p>
-                <!--  -->
+                <!-- Toast Message -->
                 <div th:if="${message != null}" class="alert alert-success alert-dismissible fade show toast-msg" role="alert">
                   <span class="alert-icon"><i class="fa-solid fa-thumbs-up"></i></span>
                   <span class="alert-text"><strong style="margin-right: 4px;">Success!</strong>[[${message}]]</span>
@@ -238,6 +238,10 @@
     //   document.getElementById("dataTable_filter").classList.add("col-md-6");
     // };
 
+    $("#logoutLink").on("click",function(e) {
+        e.preventDefault();
+        document.logoutForm.submit();
+      });
 
   </script>
 </body>

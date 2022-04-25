@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html >
 <head th:fragment="html_head">
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -95,18 +95,7 @@
                 <span class="nav-link-text ms-1">Sign Up</span>
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link " href="" id="logoutLink">
-                <div class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center">
-                  <i class="fa-regular fa-address-book text-info text-sm opacity-10"></i>
-                </div>
-                <span class="nav-link-text ms-1">Logout</span>
-              </a>
-            </li>
           </ul>
-          <form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">
-          		<input type="submit" />
-          </form>
         </div>
         <div class="sidenav-footer mx-3 ">
           <div class="card card-plain shadow-none" id="sidenavCard">
@@ -125,6 +114,9 @@
 
       <!-- Navbar -->
       <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " th:fragment="navbar" id="navbarBlur" data-scroll="false">
+        <form th:action="@{/logout}" method="post" th:hidden="true" name="logoutForm">
+          <input type="submit">
+        </form>
         <div class="container-fluid py-1 px-3">
           <nav aria-label="breadcrumb">
             <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
@@ -142,10 +134,26 @@
             </div>
             <ul class="navbar-nav  justify-content-end">
               <li class="nav-item d-flex align-items-center">
-                <a href="javascript:;" class="nav-link text-white font-weight-bold px-0">
+                <div  class="nav-link text-white font-weight-bold px-0" style="display: flex; align-items: center; line-height: normal;">
                   <i class="fa fa-user me-sm-1"></i>
-                  <span class="d-sm-inline d-none">Sign In</span>
-                </a>
+                  <span class="d-sm-inline d-none">
+                    <div class="dropdown">
+                      <a 
+                      href="" 
+                      sec:authentication="principal.fullname"
+                      class="dropdown-toggle " 
+                      data-bs-toggle="dropdown" 
+                      id="navbarDropdownMenuLink2"
+                      style="color: #fff; margin-left: 3px;">
+
+                      </a>
+                      <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink2">
+                        <li><a th:href="@{/account}" class="dropdown-item">Profile</a></li>
+                        <li><a class="dropdown-item" id="logoutLink">Logout</a></li>
+                      </ul>
+                    </div>
+                  </span>
+                </div>
               </li>
               <li class="nav-item d-xl-none ps-3 d-flex align-items-center">
                 <a href="javascript:;" class="nav-link text-white p-0" id="iconNavbarSidenav">
@@ -348,14 +356,7 @@
       </div>
 
       <!-- Script -->
-      <script type="text/javascript">
-      	$(document).ready(function(){
-      		$("#logoutLink").on("click",function(e) {
-      			e.preventDefault();
-      			document.logoutForm.submit();
-      		});
-      	});
-      </script>
+      
       <div th:fragment="script" th:remove="tag">
         <script th:src="@{/js/core/popper.min.js}"></script>
         <script th:src="@{/js/core/bootstrap.min.js}"></script>
@@ -458,6 +459,15 @@
         <script async defer th:src="@{https://buttons.github.io/buttons.js}"></script>
         <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
         <script th:src="@{/js/argon-dashboard.min.js?v=2.0.2}"></script>
+
+        <script type="text/javascript">
+          $(document).ready(function(){
+            $("#logoutLink").on("click",function(e) {
+              e.preventDefault();
+              document.logoutForm.submit();
+            });
+          });
+        </script>
       </div>
 
       <div th:fragment="scriptTable" th:remove="tag">

@@ -27,7 +27,7 @@
           <div class="col-auto my-auto">
             <div class="h-100">
               <h5 class="mb-1">
-                Manage User
+                Your Profile
               </h5>
               <p class="mb-0 font-weight-bold text-sm">
                 [[${pageTitle}]]
@@ -42,7 +42,14 @@
         </div>
       </div>
     </div>
-    
+    <!-- Toast message -->
+    <div th:if="${message != null}" class="alert alert-success alert-dismissible fade show toast-msg" role="alert">
+        <span class="alert-icon"><i class="fa-solid fa-thumbs-up"></i></span>
+        <span class="alert-text"><strong style="margin-right: 4px;">Success!</strong>[[${message}]]</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
     <div class="container-fluid py-4">
       <div class="row">
         <div class="col-md-8">
@@ -54,7 +61,7 @@
             </div>
             <div class="card-body">
               <div >
-                  <form class="row" th:action="@{/users/save}" method="POST" style="max-width: 700px;margin: 0 auto;" enctype="multipart/form-data" th:object="${user}" onsubmit="return checkEmailUnique(this);">
+                  <form class="row" th:action="@{/account/update}" method="POST" style="max-width: 700px;margin: 0 auto;" enctype="multipart/form-data" th:object="${user}">
                       <input type="hidden" th:field="*{id}" />
                       <div class="col-md-6">
                         <div class="form-group">
@@ -71,28 +78,37 @@
                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="example-text-input" class="form-control-label">Email address</label>
-                          <input class="form-control" th:field="*{email}" type="email"  required minlength="8" maxlength="128">
+                          <input readonly="readonly" class="form-control" th:field="*{email}" type="email"  required minlength="8" maxlength="128">
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
                           <label for="example-text-input" class="form-control-label">Password</label>
-                          <input  th:if="${user.id == null}" class="form-control" 
-                          th:field="*{password}" type="password"  required minlength="8" maxlength="20">
-
-                          <input  th:if="${user.id != null}" class="form-control" 
-                          th:field="*{password}" type="password"   minlength="8" maxlength="20">
+                          <input class="form-control" 
+                          th:field="*{password}" type="password"  
+                          minlength="8" maxlength="20"
+                          placeholder="Leave this blank if you don't want to change"
+                          oninput="checkPasswordMatch(document.getElementById('confirmPassword'))">
+                         
                         </div>
                       </div>
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label for="example-text-input" class="form-control-label">Role</label>
-                          <select th:field="*{roles}" class="js-select2 form-control" multiple="multiple">
-                            <th:block th:each="role : ${listRoles}">
-                                <option  th:title="${role.description}" th:value="${role.id}" data-badge="">[[${role.name}]]</option>
-                            </th:block>
-                          </select>
-
+                          <label for="example-text-input" class="form-control-label">Confirm Password</label>
+                          <input class="form-control" 
+                          type="password"  
+                          id="confirmPassword"
+                          oninput="checkPasswordMatch(this)"
+                          minlength="8" maxlength="20">
+                         
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="example-text-input" class="form-control-label">Assigned Roles</label>
+                        
+                          <input  readonly="readonly"  class="form-control" th:value="${user.roles}" required minlength="8" maxlength="20">
+                         
                          
                         </div>
                       </div>
@@ -124,16 +140,16 @@
                         </div>
                       </div>
                      
-                    </div>
-                    <div class="col-md-12">
-                      <div style="display: flex; justify-content: center; margin-top: 20px;">
-                        <div class="form-group">
-                            <button style="width: 243px; padding: 0.7rem 2rem;" type="submit" class="btn btn-primary btn-sm">Save</button>
                         </div>
-                        <div class="form-group">
-                            <button style="width: 243px; margin-left: 10px; padding: 0.7rem 2rem;" id="buttonCancel" type="submit" class="btn btn-secondary btn-sm">Cancel</button>
+                        <div class="col-md-12">
+                        <div style="display: flex; justify-content: center; margin-top: 20px;">
+                            <div class="form-group">
+                                <button style="width: 243px; padding: 0.7rem 2rem;" type="submit" class="btn btn-primary btn-sm">Save</button>
+                            </div>
+                            <div class="form-group">
+                                <button style="width: 243px; margin-left: 10px; padding: 0.7rem 2rem;" id="buttonCancel" type="submit" class="btn btn-secondary btn-sm">Cancel</button>
+                            </div>
                         </div>
-                    </div>
                   </form>
               </div>
               <hr class="horizontal dark">
@@ -349,6 +365,14 @@
         e.preventDefault();
         document.logoutForm.submit();
       });
+
+      function checkPasswordMatch(confirmPassword) {
+        if(confirmPassword.value != $("#password").val()) {
+          confirmPassword.setCustomValidity("Passwords do not match!");
+        } else {
+          confirmPassword.setCustomValidity("");
+        }
+      }
   </script>
 </body>
 

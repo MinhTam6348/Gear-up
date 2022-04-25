@@ -21,6 +21,8 @@ public class Role {
 	
 	@Column(length = 150, nullable = false)
 	private String description;
+	
+	
 	// Constructor
 	public Role() {
 		
@@ -67,12 +69,12 @@ public class Role {
 	}
 
 
+	//HashCode
 	@Override
 	public int hashCode() {
 		return Objects.hash(id);
 	}
 
-	//HashCode
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
