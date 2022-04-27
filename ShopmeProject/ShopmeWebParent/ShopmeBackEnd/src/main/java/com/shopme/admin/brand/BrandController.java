@@ -37,14 +37,14 @@ public class BrandController {
 		return "brands/brands";
 	}
 	
-	@GetMapping("/brands/page/{pageNum}")
-	public String listByPage(
-			@PagingAndSortingParam(listName = "listBrands", moduleURL = "/brands") PagingAndSortingHelper helper,
-			@PathVariable(name = "pageNum") int pageNum
-			) {
-		brandService.listByPage(pageNum, helper);
-		return "brands/brands";		
-	}
+//	@GetMapping("/brands/page/{pageNum}")
+//	public String listByPage(
+//			@PagingAndSortingParam(listName = "listBrands", moduleURL = "/brands") PagingAndSortingHelper helper,
+//			@PathVariable(name = "pageNum") int pageNum
+//			) {
+//		brandService.listByPage(pageNum, helper);
+//		return "brands/brands";		
+//	}
 	
 	@GetMapping("/brands/new")
 	public String newBrand(Model model) {
@@ -95,21 +95,21 @@ public class BrandController {
 		}
 	}
 	
-	@GetMapping("/brands/delete/{id}")
-	public String deleteBrand(@PathVariable(name = "id") Integer id, 
-			Model model,
-			RedirectAttributes redirectAttributes) {
-		try {
-			brandService.delete(id);
-			String brandDir = "brand-logos/" + id;
-			//AmazonS3Util.removeFolder(brandDir);
-			
-			redirectAttributes.addFlashAttribute("message", 
-					"The brand ID " + id + " has been deleted successfully");
-		} catch (BrandNotFoundException ex) {
-			redirectAttributes.addFlashAttribute("message", ex.getMessage());
-		}
-		
-		return defaultRedirectURL;
-	}	
+//	@GetMapping("/brands/delete/{id}")
+//	public String deleteBrand(@PathVariable(name = "id") Integer id, 
+//			Model model,
+//			RedirectAttributes redirectAttributes) {
+//		try {
+//			brandService.delete(id);
+//			String brandDir = "brand-logos/" + id;
+//			//AmazonS3Util.removeFolder(brandDir);
+//			
+//			redirectAttributes.addFlashAttribute("message", 
+//					"The brand ID " + id + " has been deleted successfully");
+//		} catch (BrandNotFoundException ex) {
+//			redirectAttributes.addFlashAttribute("message", ex.getMessage());
+//		}
+//		
+//		return defaultRedirectURL;
+//	}	
 }

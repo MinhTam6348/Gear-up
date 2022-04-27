@@ -24,7 +24,7 @@ public class BrandRepositoryTests {
 	
 	@Test
 	public void testCreateBrand1() {
-		Category laptops = new Category(6);
+		Category laptops = new Category(2);
 		Brand acer = new Brand("Acer");
 		acer.getCategories().add(laptops);
 		
@@ -36,8 +36,8 @@ public class BrandRepositoryTests {
 	
 	@Test
 	public void testCreateBrand2() {
-		Category cellphones = new Category(4);
-		Category tablets = new Category(7);
+		Category cellphones = new Category(2);
+		Category tablets = new Category(3);
 		
 		Brand apple = new Brand("Apple");
 		apple.getCategories().add(cellphones);
@@ -53,8 +53,8 @@ public class BrandRepositoryTests {
 	public void testCreateBrand3() {
 		Brand samsung = new Brand("Samsung");
 		
-		samsung.getCategories().add(new Category(29));	// category memory
-		samsung.getCategories().add(new Category(24));	// category internal hard drive
+		samsung.getCategories().add(new Category(1));	// category memory
+		samsung.getCategories().add(new Category(2));	// category internal hard drive
 		
 		Brand savedBrand = repo.save(samsung);
 		
@@ -65,7 +65,7 @@ public class BrandRepositoryTests {
 	@Test
 	public void testFindAll() {
 		Iterable<Brand> brands = repo.findAll();
-		brands.forEach(System.out::println);
+		brands.forEach(brand -> System.out.println(brand));
 		
 		assertThat(brands).isNotEmpty();
 	}

@@ -45,9 +45,9 @@
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.PathVariable"/>
     <fullyQualifiedTypeName name="org.hibernate.annotations.common.util.impl.LoggerFactory"/>
     <fullyQualifiedTypeName name="ch.qos.logback.classic.Logger"/>
+    <fullyQualifiedTypeName name="com.shopme.common.entity.Brand"/>
     <fullyQualifiedTypeName name="javax.persistence.GenerationType"/>
     <fullyQualifiedTypeName name="javax.persistence.Id"/>
     <fullyQualifiedTypeName name="javax.persistence.GeneratedValue"/>
     <fullyQualifiedTypeName name="org.springframework.data.repository.PagingAndSortingRepository"/>
-    <fullyQualifiedTypeName name="com.shopme.common.entity.Brand"/>
 </qualifiedTypeNameHistroy>

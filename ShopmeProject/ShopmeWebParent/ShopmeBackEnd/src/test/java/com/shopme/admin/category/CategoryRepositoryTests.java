@@ -25,7 +25,7 @@ public class CategoryRepositoryTests {
 	
 	@Test
 	public void testCreateRootCategory() {
-		Category category = new Category("Electronics");
+		Category category = new Category("Desktop");
 		Category savedCategory = repo.save(category);
 		
 		assertThat(savedCategory.getId()).isGreaterThan(0);
@@ -33,7 +33,7 @@ public class CategoryRepositoryTests {
 	
 	@Test
 	public void testCreateSubCategory() {
-		Category parent = new Category(6);
+		Category parent = new Category(1);
 		Category subCategory = new Category("Iphone", parent);
 		Category savedCategory = repo.save(subCategory);
 		
