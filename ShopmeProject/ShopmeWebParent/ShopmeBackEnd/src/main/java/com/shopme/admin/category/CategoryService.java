@@ -23,7 +23,7 @@ import com.shopme.common.exception.CategoryNotFoundException;
 @Service
 @Transactional
 public class CategoryService {
-	public static final int ROOT_CATEGORIES_PER_PAGE = 4;
+	public static final int ROOT_CATEGORIES_PER_PAGE = 100;
 	
 	@Autowired
 	private CategoryRepository repo;

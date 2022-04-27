@@ -4,8 +4,9 @@
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="//@Autowired"/>
+		<item key="selection" value="//&#x09;@GetMapping(&quot;/categories/delete/{id}&quot;)"/>
 		<list key="findhistory">
+			<item value="//&#x09;@GetMapping(&quot;/categories/delete/{id}&quot;)"/>
 			<item value="//@Autowired"/>
 			<item value="List&lt;User&gt; listUsers = service.listAll();"/>
 			<item value="ni ni-cart text-lg opacity-10"/>
