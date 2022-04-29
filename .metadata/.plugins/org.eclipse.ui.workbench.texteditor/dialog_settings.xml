@@ -6,6 +6,7 @@
 		<item key="isRegEx" value="false"/>
 		<item key="selection" value="//&#x09;@GetMapping(&quot;/categories/delete/{id}&quot;)"/>
 		<list key="findhistory">
+			<item value="addDe"/>
 			<item value="//&#x09;@GetMapping(&quot;/categories/delete/{id}&quot;)"/>
 			<item value="//@Autowired"/>
 			<item value="List&lt;User&gt; listUsers = service.listAll();"/>

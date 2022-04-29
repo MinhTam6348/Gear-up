@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+
+  <head th:replace="fragments :: html_head('tag')"></head>
+
+  <link rel="stylesheet" th:href="@{/js/richtexteditor/rte_theme_default.css}" />
+  <script type="text/javascript" th:src="@{/js/richtexteditor/rte.js}"></script>
+  <script type="text/javascript" th:src='@{/js/richtexteditor/plugins/all_plugins.js}'></script>
+  <link rel="stylesheet" th:href="@{/css/editor.css}">
+</head>
+
+<body class="g-sidenav-show bg-gray-100">
+  <div class="position-absolute w-100 min-height-300 top-0"
+    style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/profile-layout-header.jpg'); background-position-y: 50%;">
+    <span class="mask bg-primary opacity-6"></span>
+  </div>
+  <!-- Sidebar -->
+  <div th:replace="fragments :: sidebar"></div>
+  <!-- End Sidebar -->
+  <div class="main-content position-relative max-height-vh-100 h-100">
+    <!-- Navbar -->
+    <div th:replace="fragments :: navbar"></div>
+    <!-- End Navbar -->
+    <div class="card shadow-lg mx-4 card-profile-bottom">
+      <div class="card-body p-3">
+        <div class="row gx-4">
+          <div class="col-auto">
+            <div class="avatar avatar-xl position-relative">
+              <img th:src="@{/images/team-1.jpg}" alt="profile_image" class="w-100 border-radius-lg shadow-sm">
+            </div>
+          </div>
+          <div class="col-auto my-auto">
+            <div class="h-100">
+              <h5 class="mb-1">
+                Manage Products
+              </h5>
+              <p class="mb-0 font-weight-bold text-sm">
+                [[${pageTitle}]]
+              </p>
+            </div>
+          </div>
+          <div class="col-lg-4 col-md-6 my-sm-auto ms-sm-auto me-sm-0 mx-auto mt-3">
+            <div class="nav-wrapper position-relative end-0">
+              <ul class="nav nav-pills nav-fill p-1" role="tablist">
+                <li class="nav-item">
+                  <a class="nav-link active mb-0 px-0 py-1  d-flex align-items-center justify-content-center "
+                    data-bs-toggle="tab" href="#productOverview" role="tab" aria-selected="true">
+
+                    <span class="ms-2">OverView</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link mb-0 px-0 py-1 d-flex align-items-center justify-content-center "
+                    data-bs-toggle="tab" href="#buzz" role="tab" aria-selected="false">
+
+                    <span class="ms-2">Description</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link mb-0 px-0 py-1 d-flex align-items-center justify-content-center "
+                    data-bs-toggle="tab" href="#images" role="tab" aria-selected="false">
+
+                    <span class="ms-2">Image</span>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link mb-0 px-0 py-1 d-flex align-items-center justify-content-center "
+                    data-bs-toggle="tab" href="#references" role="tab" aria-selected="false">
+
+                    <span class="ms-2">Details</span>
+                  </a>
+                </li>
+
+                <li class="nav-item">
+                  <a class="nav-link mb-0 px-0 py-1 d-flex align-items-center justify-content-center "
+                    data-bs-toggle="tab" href="#shipping" role="tab" aria-selected="false">
+
+                    <span class="ms-2">Shipping</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <form class="" th:action="@{/products/save}" method="POST" enctype="multipart/form-data"
+      onsubmit="return checkUnique(this)"  th:object="${product}">
+      <input type="hidden" th:field="*{id}" />
+      <div class="container-fluid py-4 tab-content">
+        <div class="tab-pane active" role="tabpanel" id="productOverview">
+          <div th:replace="products/product_overview :: content"></div>
+        </div>
+
+        <div role="tabpanel" class="tab-pane fade" id="buzz">
+          <div th:replace="products/product_description :: description"></div>
+        </div>
+
+        <div role="tabpanel" class="tab-pane fade" id="images">
+          <div th:replace="products/product_images :: images"></div>
+        </div>
+
+        <div role="tabpanel" class="tab-pane fade" id="references">
+          <div th:replace="products/product_details :: details"></div>
+        </div>
+
+        <div role="tabpanel" class="tab-pane fade" id="shipping">
+          <div th:replace="products/product_shipping :: shipping"></div>
+        </div>
+      </div>
+
+      <div class="col-md-12">
+        <div style="display: flex; justify-content: center; margin-top: 20px;">
+          <div class="form-group">
+            <button style="width: 243px; padding: 0.7rem 2rem;" type="submit"
+              class="btn btn-primary btn-sm">Save</button>
+          </div>
+          <div class="form-group">
+            <button style="width: 243px; margin-left: 10px; padding: 0.7rem 2rem;" id="buttonCancel" type="submit"
+              class="btn btn-secondary btn-sm">Cancel</button>
+          </div>
+        </div>
+    </form>
+
+  </div>
+
+  <!-- Modal -->
+  <div class="modal fade" id="modal-notification" tabindex="-1" role="dialog" aria-labelledby="modal-notification"
+    aria-hidden="true">
+    <div class="modal-dialog modal-danger modal-dialog-centered modal-" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h6 class="modal-title text-gradient text-danger" id="modal-title-notification"></h6>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <div class="py-3 text-center">
+
+            <div style="color: #fbb140;">
+              <i class="fa-solid fa-circle-exclamation ni-3x"></i>
+            </div>
+
+            <h4 class="text-gradient text-danger mt-4">You should read this!</h4>
+            <p id="modal-body-notification"></p>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn bg-gradient-warning" data-bs-dismiss="modal">Ok, Got it</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div th:replace="fragments :: fixplugin"></div>
+  <!--   Core JS Files   -->
+  <div th:replace="fragments :: scriptTable"></div>
+
+  <div th:replace="fragments :: scriptSelect"></div>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      $("#buttonCancel").on("click", function () {
+        window.location = "[[@{/products}]]"
+      });
+    })
+  
+
+
+    $("#logoutLink").on("click", function (e) {
+      e.preventDefault();
+      document.logoutForm.submit();
+    });
+
+   
+
+    //======================================
+    moduleURL = "[[@{/products}]]";
+    brandModuleURL = "[[@{/brands}]]";
+    defaultImageThumbnailSrc = "[[@{/images/placeholder-image.jpg}]]";
+    checkUniqueUrl = "[[@{/products/check_unique}]]";
+    
+    var editor1 = new RichTextEditor(".inp_editor1");
+    var editor1 = new RichTextEditor(".inp_editor2");
+    
+   
+  </script>
+  <script th:src="@{/js/product_form_details.js}"></script>
+  <script th:src="@{/js/product_form_overview.js}"></script>
+  <script th:src="@{/js/product_form_images.js}"></script>
+</body>
+
+</html>

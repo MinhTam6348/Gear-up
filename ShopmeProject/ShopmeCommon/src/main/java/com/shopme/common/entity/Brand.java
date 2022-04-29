@@ -5,8 +5,9 @@ import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-
-
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -17,8 +18,12 @@ import com.shopme.common.Constants;
 
 @Entity
 @Table(name = "brands")
-public class Brand extends IdBasedEntity {
+public class Brand {
 	
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	protected Integer id;
 	
 	
 	@Column(nullable = false, length = 45, unique = true)
@@ -48,6 +53,15 @@ public class Brand extends IdBasedEntity {
 		this.id = id;
 		this.name = name;
 	}
+	
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}	
 
 	public String getName() {
 		return name;
@@ -80,8 +94,8 @@ public class Brand extends IdBasedEntity {
 
 	@Transient
 	public String getLogoPath() {
-		if (this.id == null) return "/images/image-thumbnail.png";
+		if (this.id == null) return "/images/placeholder-image.jpg";
 		
-		return Constants.S3_BASE_URI + "/brand-logos/" + this.id + "/" + this.logo;		
+		return "/brand-logos/" + this.id + "/" + this.logo;		
 	}
 }

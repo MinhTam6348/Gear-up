@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 
-<head th:replace="fragments :: html_head">
+<head th:replace="fragments :: html_head('none')">
 
 </head>
 
@@ -27,7 +27,7 @@
           <div class="col-auto my-auto">
             <div class="h-100">
               <h5 class="mb-1">
-                Manage Category
+                Manage Brands
               </h5>
               <p class="mb-0 font-weight-bold text-sm">
                 [[${pageTitle}]]
@@ -54,51 +54,38 @@
             </div>
             <div class="card-body">
               <div >
-                  <form class="row" th:action="@{/categories/save}" method="POST" style="max-width: 700px;margin: 0 auto;" enctype="multipart/form-data" th:object="${category}" onsubmit="return checkUnique(this);">
+                  <form class="row" th:action="@{/brands/save}" method="POST" style="max-width: 700px;margin: 0 auto;" onsubmit="return checkUnique(this)" enctype="multipart/form-data" th:object="${brand}">
                       <input type="hidden" th:field="*{id}" />
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label for="example-text-input" class="form-control-label">Category Name</label>
-                          <input class="form-control" th:field="*{name}" type="text" required minlength="3" maxlength="128">
+                          <label for="example-text-input" class="form-control-label">Brand Name</label>
+                          <input class="form-control" th:field="*{name}" type="text"  required minlength="3" maxlength="128">
                         </div>
                       </div>
-                      <div class="col-md-6">
-                        <div class="form-group">
-                          <label for="example-text-input" class="form-control-label">Alias</label>
-                          <input class="form-control" th:field="*{alias}" type="text" required minlength="3" maxlength="64">
-                        </div>
-                      </div>
+                    
                      
                       <div class="col-md-6">
                         <div class="form-group">
-                          <label for="example-text-input" class="form-control-label">Parent Category</label>
-                          <select th:field="*{parent}"  class="js-select2 form-control" multiple="multiple">
-                            <option value="0">[No Parent]</option>
-							<th:block th:each="cat : ${listCategories}">
-								<option th:value="${cat.id}">[[${cat.name}]]</option>
-							</th:block>
+                          <label for="example-text-input" class="form-control-label">Select categories</label>
+                          <select th:field="*{categories}"  class="js-select2 form-control" multiple="multiple">
+                            <th:block th:each="cat : ${listCategories}">
+                              <option th:value="${cat.id}">[[${cat.name}]]</option>
+                            </th:block>
                           </select>
                         </div>
                       </div>
-                      <div class="col-md-6 check-enable-user">
-                        <div class="form-check">
-                          <input class="form-check-input" type="checkbox" th:field="*{enabled}" />
-                          <label class="custom-control-label" for="customCheck1">Enable this category</label>
-                        </div>
-                      </div>
-
+                      
                       <div class="col-md-6" style="text-align: right;">
                         <div class="">
                           <div class="avatar-upload">
                             <div class="avatar-edit">
-                                <input type="hidden" th:field=" *{image}" />
-                                <input type="file" id="fileImage" name="fileImage" accept="image/png ,image/jpeg" class="mb-2"/>
+                                <input type="hidden" th:field=" *{logo}" />
+                                <input type="file" id="fileImage" th:required="${brand.id == null}" name="fileImage" accept="image/png ,image/jpeg" class="mb-2"/>
                                 <label for="fileImage" ></label>
                             </div>
                             <div class="avatar-preview">
-								<div th:if="${category.image == null}" id="imagePreview" th:style="'background-image: url('+@{/images/placeholder-image.jpg}+');'"></div>
-                                <div th:if="${category.image != null}" id="imagePreview" th:style="'background-image: url('+@{'/category-images/' + *{id} + '/' + *{image}}+');'"></div>
-							</div>
+                              <div id="imagePreview" th:style="'background-image: url('+@{'/brand-logos/' + *{id} + '/' + *{logo}}+');'"></div>
+							              </div>
                         </div>
                       </div>
                      
@@ -248,7 +235,7 @@
   <script type="text/javascript">
     $(document).ready(function() {
       $("#buttonCancel").on("click", function() {
-        window.location = "[[@{/categories}]]"
+        window.location = "[[@{/brands}]]"
       });
       	
       $("#fileImage").change(function() {
@@ -286,23 +273,20 @@
 
 
 	  function checkUnique(form) {
-		catId = $("#id").val();
-		catName = $("#name").val();
-		catAlias = $("#alias").val();
+		brandId = $("#id").val();
+		brandName = $("#name").val();
 		
 		csrfValue = $("input[name='_csrf']").val();
 		
-		url = "[[@{/categories/check_unique}]]";
+		url = "[[@{/brands/check_unique}]]";
 		
-		params = {id: catId, name: catName, alias: catAlias, _csrf: csrfValue};
+		params = {id: brandId, name: brandName, _csrf: csrfValue};
 		
 		$.post(url, params, function(response) {
 			if (response == "OK") {
 				form.submit();
-			} else if (response == "DuplicateName") {
-				showWarningModal("There is another category having same name " + catName);	
-			} else if (response == "DuplicateAlias") {
-				showWarningModal("There is another category having same alias " + catAlias);
+			} else if (response == "Duplicate") {
+				showWarningModal("There is another brand having same name " + brandName);	
 			} else {
 				showErrorModal("Unknown response from server");
 			}

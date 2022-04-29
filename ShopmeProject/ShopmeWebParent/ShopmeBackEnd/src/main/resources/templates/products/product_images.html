@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+    <div th:fragment="images" th:remove="tag">
+        <div class="row mt-4">
+            <div class="col-lg-12 mt-lg-0 mt-4">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row" id="divProductImages">
+                            <div class="col-lg-4">
+                                <div class="card h-100">
+                                    <div class="card-body pos-relative">
+                                        <h5 class="font-weight-bolder">Main Image</h5>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <img class="w-100 border-radius-lg shadow-lg mt-3 size-image-content"
+                                                    id="thumbnail"
+                                                    th:src="@{${product.mainImagePath}}"
+                                                    alt="Main image preview">
+                                            </div>
+                                            <div class="col-12 mt-5">
+                                                <div class="d-flex">
+                                                    <input type="file" style="display: none;"  id="fileImage" name="fileImage" required accept="image/png ,image/jpeg" class=""/>
+                                                    <label class="btn btn-primary btn-sm mb-0 me-2"  for="fileImage">
+                                                        Edit
+                                                    </label>
+                                                    <button class="btn btn-outline-dark btn-sm mb-0" type="button"
+                                                        name="button">Remove</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                       
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div class="col-lg-4" id="divExtraImage0">
+                                <div class="card h-100">
+                                    <div class="card-body pos-relative">
+                                        <h5 class="font-weight-bolder">Extra Image #1</h5>
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <img class="w-100 border-radius-lg shadow-lg mt-3 size-image-content"
+                                                    id="extraThumbnail0"
+                                                    th:src="@{/images/placeholder-image.jpg}"
+                                                    alt="Extra image #1 preview">
+                                            </div>
+                                            <div class="col-12 mt-5">
+                                                <div class="d-flex">
+                                                    <input type="file" style="display: none;" id="extraImage"  name="extraImage" accept="image/png ,image/jpeg" class=""/>
+                                                    <label class="btn btn-primary btn-sm mb-0 me-2"  for="extraImage">
+                                                        Edit
+                                                    </label>
+                                                    <button class="btn btn-outline-dark btn-sm mb-0" type="button"
+                                                        name="button">Remove</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div id="extraImageHeader0" class="btn-close-position">
+                                            
+                                        </div>
+                                     
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+       
+        <footer class="footer pt-3  ">
+            <div class="container-fluid">
+                <div class="row align-items-center justify-content-lg-between">
+                    <div class="col-lg-6 mb-lg-0 mb-4">
+                        <div class="copyright text-center text-sm text-muted text-lg-start">
+                            ©
+                            <script>
+                                document.write(new Date().getFullYear())
+                            </script>,
+                            made with <i class="fa fa-heart"></i> by
+                            <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative
+                                Tim</a>
+                            for a better web.
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+                            <li class="nav-item">
+                                <a href="https://www.creative-tim.com" class="nav-link text-muted"
+                                    target="_blank">Creative Tim</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted"
+                                    target="_blank">About
+                                    Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://www.creative-tim.com/blog" class="nav-link text-muted"
+                                    target="_blank">Blog</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted"
+                                    target="_blank">License</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>

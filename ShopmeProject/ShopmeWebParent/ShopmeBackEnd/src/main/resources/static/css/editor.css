@@ -1,0 +1,101 @@
+.richtexteditor {
+    min-height: 500px;
+}
+
+.rte-modern.rte-desktop.rte-toolbar-default {
+    margin-bottom: 20px;
+}
+
+.size-image-content {
+    width: 453px !important;
+    height: 306px;
+}
+
+.row>* {
+    padding-bottom: calc(var(--bs-gutter-x) * .5);
+}
+
+.btn-closes {
+    margin: 0;
+    border: 0;
+    padding: 0;
+    background: #a1a1a1;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: all 150ms;
+}
+.btn-closes .icon-cross {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    position: relative;
+    width: 30px;
+    height: 40px;
+}
+.btn-closes .icon-cross:before, .btn-closes .icon-cross:after {
+    content: '';
+    position: absolute;
+    top: 17px;
+    left: 0;
+    right: 0;
+    height: 6px;
+    background: #fff;
+    border-radius: 6px;
+}
+.btn-closes .icon-cross:before {
+    transform: rotate(45deg);
+}
+.btn-closes .icon-cross:after {
+    transform: rotate(-45deg);
+}
+.btn-closes .icon-cross span {
+    display: block;
+}
+.btn-closes:hover, .btn-closes:focus {
+    transform: rotateZ(180deg);
+    background: #a1a1a1;
+}
+.visually-hidden {
+    position: absolute !important;
+    clip: rect(1px, 1px, 1px, 1px);
+    padding: 0 !important;
+    border: 0 !important;
+    height: 1px !important;
+    width: 1px !important;
+    overflow: hidden;
+}
+
+.btn-closes-form {
+    position: absolute;
+    top: 8px;
+    right: 13px;
+    width: 50px;
+    height: 50px;
+}
+
+.btn-closes .icon-cross:before, .btn-closes .icon-cross:after {
+    height: 4px;
+}
+
+.pos-relative {
+    position: relative;
+}
+
+#divProductDetails .mt-3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btn-close-position {
+    position: absolute;
+    top: 10px;
+    right: 12px;
+}

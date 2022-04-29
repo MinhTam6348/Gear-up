@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head th:fragment="html_head">
+  <head th:fragment="html_head(remove)" th:remove="${remove}">
     <meta charset="utf-8" />
     <meta
       name="viewport"
@@ -96,7 +96,7 @@
             sec:authorize="hasAnyAuthority('Admin', 'Editor', 'Salesperson', 'Shipper')"
           >
             <li class="nav-item">
-              <a class="nav-link" href="./pages/sign-in.html">
+              <a class="nav-link" th:href="@{/products}">
                 <div
                   class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center"
                 >
@@ -140,9 +140,7 @@
           </th:block>
           <th:block sec:authorize="hasAnyAuthority('Admin', 'Salesperson')">
             <li class="nav-item mt-3">
-              <h6
-                class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6"
-              >
+              <h6 class="ps-4 ms-2 text-uppercase text-xs font-weight-bolder opacity-6">
                 Account pages
               </h6>
             </li>
@@ -835,11 +833,9 @@
     <div th:fragment="scriptSelect" th:remove="tag">
       <script>
         $(".js-select2").select2({
-          closeOnSelect: false,
-          placeholder: "Choose Role",
+          closeOnSelect: true,
+          placeholder: "Choose",
           allowHtml: true,
-          allowClear: true,
-          tags: true,
         });
         function iformat(icon, badge) {
           var originalOption = icon.element;
