@@ -90,6 +90,8 @@
     <form class="" th:action="@{/products/save}" method="POST" enctype="multipart/form-data"
       onsubmit="return checkUnique(this)"  th:object="${product}">
       <input type="hidden" th:field="*{id}" />
+      <input th:if="${product.category != null}" type="hidden" 
+        id="categoryId" th:value="${product.category.id}" />
       <div class="container-fluid py-4 tab-content">
         <div class="tab-pane active" role="tabpanel" id="productOverview">
           <div th:replace="products/product_overview :: content"></div>

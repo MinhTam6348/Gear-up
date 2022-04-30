@@ -4,7 +4,7 @@
 <body>
     <div th:fragment="content" th:remove="tag">
         <div class="row mt-4">
-            
+
             <div class="col-12 col-lg-8 m-auto">
                 <div class="card">
                     <div class="card-body">
@@ -19,7 +19,7 @@
                                 <label>Alias</label>
                                 <input class="form-control" type="text"
                                     placeholder="Default is product name  (space are replace by dashes)"
-                                    th:field="*{alias}"  minlength="3" maxlength="256" />
+                                    th:field="*{alias}" minlength="3" maxlength="256" />
                             </div>
                         </div>
                         <div class="row">
@@ -27,7 +27,7 @@
                                 <label class="mt-4">Cost</label>
                                 <input class="form-control" type="number" th:field="*{cost}" />
                             </div>
-                            
+
                             <div class="col-3">
                                 <label class="mt-4">Price</label>
                                 <input class="form-control" type="number" th:field="*{price}" />
@@ -39,12 +39,14 @@
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-sm-6" style="display: flex; justify-content: space-between; justify-content: space-between; margin-top: 32px;">
+                            <div class="col-sm-6"
+                                style="display: flex; justify-content: space-between; justify-content: space-between; margin-top: 32px;">
                                 <div class="">
                                     <label class="mt-4">Status</label>
                                     <div class="form-check">
                                         <input class="form-check-input" type="checkbox" th:field="*{enabled}">
-                                        <label class="custom-control-label" for="customCheck1">Enable this product</label>
+                                        <label class="custom-control-label" for="customCheck1">Enable this
+                                            product</label>
                                     </div>
                                 </div>
 
@@ -68,12 +70,24 @@
                                 </select>
 
                                 <label class="mt-4">Category</label>
-                                <select th:field="*{category}" class="js-select2 form-control" multiple="multiple"
-                                    required>
-                                    <th:block th:each="cat : ${listCategories}">
-                                        <option th:value="${cat.id}">[[${cat.name}]]</option>
-                                    </th:block>
-                                </select>
+                                <th:block th:if="${product.category != null}">
+                                    <select th:field="*{category}" class="js-select2 form-control" multiple="multiple"
+                                        required>
+                                        <th:block th:each="cat : ${product.brand.categories}">
+                                            <option th:value="${cat.id}">[[${cat.name}]]</option>
+                                        </th:block>
+                                    </select>
+                                </th:block>
+
+
+                                <th:block th:if="${product.category == null}">
+                                    <select th:field="*{category}" class="js-select2 form-control" multiple="multiple"
+                                        required>
+                                        <th:block th:each="cat : ${listCategories}">
+                                            <option th:value="${cat.id}">[[${cat.name}]]</option>
+                                        </th:block>
+                                    </select>
+                                </th:block>
 
                             </div>
                         </div>
@@ -81,7 +95,7 @@
                 </div>
             </div>
         </div>
-       
+
         <footer class="footer pt-3  ">
             <div class="container-fluid">
                 <div class="row align-items-center justify-content-lg-between">

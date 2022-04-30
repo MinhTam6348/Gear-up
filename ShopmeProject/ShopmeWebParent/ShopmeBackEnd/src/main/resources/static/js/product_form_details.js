@@ -14,6 +14,7 @@ function addNextDetailSection() {
 	
 	htmlDetailSection = `
         <div class="row mt-3" id="divDetail${divDetailsCount}">
+            <input type="hidden" name="detailIDs" value="0" />
             <div class="col-12 col-sm-5">
                 <label>Name</label>
                 <input class="multisteps-form__input form-control" type="text"

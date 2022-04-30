@@ -11,7 +11,7 @@
                             <div class="col-lg-4">
                                 <div class="card h-100">
                                     <div class="card-body pos-relative">
-                                        <h5 class="font-weight-bolder">Main Image</h5>
+                                        <h5 class="font-weight-bolder">Main Image: [[${product.mainImage}]]</h5>
                                         <div class="row">
                                             <div class="col-12">
                                                 <img class="w-100 border-radius-lg shadow-lg mt-3 size-image-content"
@@ -21,13 +21,16 @@
                                             </div>
                                             <div class="col-12 mt-5">
                                                 <div class="d-flex">
-                                                    <input type="file" style="display: none;"  id="fileImage" name="fileImage" required accept="image/png ,image/jpeg" class=""/>
+                                                    <input type="file" style="display: none;"  id="fileImage" name="fileImage" 
+                                                    th:required="${product.mainImage == null}"
+                                                    accept="image/png ,image/jpeg" class=""/>
                                                     <label class="btn btn-primary btn-sm mb-0 me-2"  for="fileImage">
                                                         Edit
                                                     </label>
                                                     <button class="btn btn-outline-dark btn-sm mb-0" type="button"
                                                         name="button">Remove</button>
                                                 </div>
+                                                <input type="hidden" th:field="*{mainImage}">
                                             </div>
                                         </div>
                                         
@@ -35,22 +38,61 @@
                                     </div>
                                 </div>
                             </div>
+
+                            <th:block th:each="productImage, status : ${product.images}">
+                                <div class="col-lg-4" th:id="'divExtraImage' + ${status.index}">
+                                    <div class="card h-100">
+                                        <div class="card-body pos-relative">
+                                            <h5 class="font-weight-bolder">Extra Image #[[${status.index + 1}]]: [[${productImage.name}]]</h5>
+                                            <div class="row">
+                                                <div class="col-12">
+                                                    <img class="w-100 border-radius-lg shadow-lg mt-3 size-image-content"
+                                                        th:id="'extraThumbnail' + ${status.index}"
+                                                        th:src="@{${productImage.imagePath}}"
+                                                        th:alt="'Extra image #' + ${status.index + 1} + 'preview'">
+                                                </div>
+                                                <div class="col-12 mt-5">
+                                                    <div class="d-flex">
+                                                        <input type="file" style="display: none;" th:id="'extraImage' + ${status.index}"  name="extraImage" accept="image/png ,image/jpeg" class=""/>
+                                                        <label class="btn btn-primary btn-sm mb-0 me-2"  th:for="'extraImage' + ${status.index}">
+                                                            Edit
+                                                        </label>
+                                                        <button class="btn btn-outline-dark btn-sm mb-0" type="button"
+                                                            name="button">Remove</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div id="extraImageHeader0" class="btn-close-position">
+                                                <a name="linkRemoveExtraImage" class="btn-closes btn-close-form" title="Remove this image">
+                                                    <span class="icon-cross"></span>
+                                                    <span class="visually-hidden">Close</span>
+                                                </a>
+                                            </div>
+                                         
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="imageIDs" th:id="'imageId' + ${status.index}"
+                                        th:value="${productImage.id}" />
+                                    <input type="hidden" name="imageNames" th:id="'imageName' + ${status.index}"
+                                        th:value="${productImage.name}" />
+                                </div>
+                            </th:block>
     
-                            <div class="col-lg-4" id="divExtraImage0">
+                            <div class="col-lg-4" th:id="'divExtraImage' + ${numberOfExistingExtraImages}">
                                 <div class="card h-100">
                                     <div class="card-body pos-relative">
-                                        <h5 class="font-weight-bolder">Extra Image #1</h5>
+                                        <h5 class="font-weight-bolder">Extra Image #[[${numberOfExistingExtraImages + 1}]]</h5>
                                         <div class="row">
                                             <div class="col-12">
                                                 <img class="w-100 border-radius-lg shadow-lg mt-3 size-image-content"
-                                                    id="extraThumbnail0"
+                                                    th:id="'extraThumbnail' + ${numberOfExistingExtraImages}"
                                                     th:src="@{/images/placeholder-image.jpg}"
-                                                    alt="Extra image #1 preview">
+                                                    th:alt="'Extra image #' + ${numberOfExistingExtraImages} +'preview'">
                                             </div>
                                             <div class="col-12 mt-5">
                                                 <div class="d-flex">
-                                                    <input type="file" style="display: none;" id="extraImage"  name="extraImage" accept="image/png ,image/jpeg" class=""/>
-                                                    <label class="btn btn-primary btn-sm mb-0 me-2"  for="extraImage">
+                                                    <input type="file" style="display: none;" th:id="'extraImage' + ${numberOfExistingExtraImages}"  name="extraImage" accept="image/png ,image/jpeg" class=""/>
+                                                    <label class="btn btn-primary btn-sm mb-0 me-2"  th:for="'extraImage' + ${numberOfExistingExtraImages}">
                                                         Edit
                                                     </label>
                                                     <button class="btn btn-outline-dark btn-sm mb-0" type="button"
@@ -58,7 +100,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div id="extraImageHeader0" class="btn-close-position">
+                                        <div th:id="'extraImageHeader' + ${numberOfExistingExtraImages}" class="btn-close-position">
                                             
                                         </div>
                                      

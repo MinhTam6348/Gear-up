@@ -104,8 +104,8 @@
                           title="Enable this product"><i class="fa-solid fa-ban"></i></a>
                       </td>
                       <td class="align-middle text-center">
-                        <span class="text-secondary text-xs font-weight-bold">[[${#dates.format(product.createdTime,
-                          'dd-MM-yyyy')}]]</span>
+                        <span th:if="${product.createdTime != null}" class="text-secondary text-xs font-weight-bold">[[${#dates.format(product.createdTime, 'dd-MM-yyyy')}]]</span>
+                        <span th:if="${product.createdTime == null}" class="text-secondary text-xs font-weight-bold">[[${#dates.format(product.updatedTime, 'dd-MM-yyyy')}]]</span>
                       </td>
                       <td class="align-middle">
                         <div style="display: flex; justify-content: space-evenly;">
