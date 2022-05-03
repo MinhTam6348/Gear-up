@@ -24,7 +24,6 @@ import com.shopme.common.Constants;
 @Entity
 @Table(name = "products")
 public class Product extends IdBasedEntity {
-	
 	@Column(unique = true, length = 255, nullable = false)
 	private String name;
 	
@@ -77,12 +76,12 @@ public class Product extends IdBasedEntity {
 	@OneToMany(mappedBy = "product", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<ProductDetail> details = new ArrayList<>();
 
-//	private int reviewCount;
-//	private float averageRating;
+	private int reviewCount;
+	private float averageRating;
 	
 //	@Transient private boolean customerCanReview;
 //	@Transient private boolean reviewedByCustomer;
-//	
+	
 	public Product(Integer id) {
 		this.id = id;
 	}
@@ -257,9 +256,9 @@ public class Product extends IdBasedEntity {
 	
 	@Transient
 	public String getMainImagePath() {
-		if (id == null || mainImage == null) return "/images/placeholder-image.jpg";
+		if (id == null || mainImage == null) return "/images/image-thumbnail.png";
 		
-		return "/product-images/" + this.id + "/" + this.mainImage;
+		return Constants.S3_BASE_URI +"/product-images/" + this.id + "/" + this.mainImage;
 	}
 
 	public List<ProductDetail> getDetails() {
@@ -291,38 +290,38 @@ public class Product extends IdBasedEntity {
 		return false;
 	}
 	
-//	@Transient
-//	public String getShortName() {
-//		if (name.length() > 70) {
-//			return name.substring(0, 70).concat("...");
-//		}
-//		return name;
-//	}
-//	
-//	@Transient
-//	public float getDiscountPrice() {
-//		if (discountPercent > 0) {
-//			return price * ((100 - discountPercent) / 100);
-//		}
-//		return this.price;
-//	}
-//
-//	public int getReviewCount() {
-//		return reviewCount;
-//	}
-//
-//	public void setReviewCount(int reviewCount) {
-//		this.reviewCount = reviewCount;
-//	}
-//
-//	public float getAverageRating() {
-//		return averageRating;
-//	}
-//
-//	public void setAverageRating(float averageRating) {
-//		this.averageRating = averageRating;
-//	}
-//	
+	@Transient
+	public String getShortName() {
+		if (name.length() > 70) {
+			return name.substring(0, 70).concat("...");
+		}
+		return name;
+	}
+	
+	@Transient
+	public float getDiscountPrice() {
+		if (discountPercent > 0) {
+			return price * ((100 - discountPercent) / 100);
+		}
+		return this.price;
+	}
+
+	public int getReviewCount() {
+		return reviewCount;
+	}
+
+	public void setReviewCount(int reviewCount) {
+		this.reviewCount = reviewCount;
+	}
+
+	public float getAverageRating() {
+		return averageRating;
+	}
+
+	public void setAverageRating(float averageRating) {
+		this.averageRating = averageRating;
+	}
+	
 //	@Transient
 //	public String getURI() {
 //		return "/p/" + this.alias + "/";
@@ -343,5 +342,6 @@ public class Product extends IdBasedEntity {
 //	public void setReviewedByCustomer(boolean reviewedByCustomer) {
 //		this.reviewedByCustomer = reviewedByCustomer;
 //	}
+	
 	
 }

@@ -6,6 +6,8 @@
 		<item key="isRegEx" value="false"/>
 		<item key="selection" value="containsImageName"/>
 		<list key="findhistory">
+			<item value="detail"/>
+			<item value="mainImagePath"/>
 			<item value="ProductImage"/>
 			<item value="addDe"/>
 			<item value="//&#x09;@GetMapping(&quot;/categories/delete/{id}&quot;)"/>
