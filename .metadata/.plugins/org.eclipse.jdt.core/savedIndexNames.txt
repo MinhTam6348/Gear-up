@@ -71,7 +71,6 @@ INDEX VERSION 1.131+G:\GearUp\GearUp\.metadata\.plugins\org.eclipse.jdt.core
 1273297841.index
 1994273413.index
 118394084.index
-3978602150.index
 3347044661.index
 1318221229.index
 3870466171.index

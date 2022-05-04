@@ -35,4 +35,6 @@ public class CustomerController {
 		
 		return "register/register_success";
 	}
+	
+	
 }

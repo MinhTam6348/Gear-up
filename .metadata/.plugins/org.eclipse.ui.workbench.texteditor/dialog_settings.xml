@@ -4,8 +4,9 @@
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="isRegEx" value="false"/>
-		<item key="selection" value="containsImageName"/>
+		<item key="selection" value="defaultRedirectURL"/>
 		<list key="findhistory">
+			<item value="defaultRedirectURL"/>
 			<item value="fi"/>
 			<item value="mainImagePat"/>
 			<item value="listResult"/>
@@ -13,7 +14,6 @@
 			<item value="mainImagePath"/>
 			<item value="ProductImage"/>
 			<item value="addDe"/>
-			<item value="//&#x09;@GetMapping(&quot;/categories/delete/{id}&quot;)"/>
 		</list>
 		<list key="replacehistory">
 		</list>

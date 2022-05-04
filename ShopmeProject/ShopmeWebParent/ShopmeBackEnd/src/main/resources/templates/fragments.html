@@ -165,7 +165,7 @@
           </li>
           <th:block sec:authorize="hasAnyAuthority('Admin', 'Salesperson')">
             <li class="nav-item">
-              <a class="nav-link" href="./pages/profile.html">
+              <a class="nav-link" th:href="@{/customers}">
                 <div
                   class="icon icon-shape icon-sm border-radius-md text-center me-2 d-flex align-items-center justify-content-center"
                 >

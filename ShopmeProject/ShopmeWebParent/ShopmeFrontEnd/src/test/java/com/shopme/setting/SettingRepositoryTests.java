@@ -17,11 +17,11 @@ import com.shopme.common.entity.setting.SettingCategory;
 @Rollback(false)
 public class SettingRepositoryTests {
 	
-	@Autowired SettingRepository repo;
+	//@Autowired SettingRepository repo;
 	
-	@Test
-	public void testFindByTwoCategories() {
-		List<Setting> settings = repo.findByTwoCategories(SettingCategory.GENERAL, SettingCategory.CURRENCY);
-		settings.forEach(System.out::println);
-	}
+//	@Test
+//	public void testFindByTwoCategories() {
+//		List<Setting> settings = repo.findByTwoCategories(SettingCategory.GENERAL, SettingCategory.CURRENCY);
+//		settings.forEach(System.out::println);
+//	}
 }
