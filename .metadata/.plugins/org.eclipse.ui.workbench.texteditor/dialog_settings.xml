@@ -6,14 +6,14 @@
 		<item key="isRegEx" value="false"/>
 		<item key="selection" value="containsImageName"/>
 		<list key="findhistory">
+			<item value="fi"/>
+			<item value="mainImagePat"/>
+			<item value="listResult"/>
 			<item value="detail"/>
 			<item value="mainImagePath"/>
 			<item value="ProductImage"/>
 			<item value="addDe"/>
 			<item value="//&#x09;@GetMapping(&quot;/categories/delete/{id}&quot;)"/>
-			<item value="//@Autowired"/>
-			<item value="List&lt;User&gt; listUsers = service.listAll();"/>
-			<item value="ni ni-cart text-lg opacity-10"/>
 		</list>
 		<list key="replacehistory">
 		</list>

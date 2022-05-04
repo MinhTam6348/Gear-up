@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<body>
+    <div th:fragment="content" th:remove="tag">
+        <div class="row mt-4">
+
+            <div class="col-12 col-lg-8 m-auto">
+                <div class="card">
+                    <div class="card-body">
+                        <form th:action="@{/setting/save_mail_server}" method="post"></form>
+                        <h5 class="font-weight-bolder">Settings</h5>
+                        <div class="row">
+                            <div class="col-12 col-sm-6">
+                                <label>SMTP Server Host Name</label>
+                                <input class="form-control" type="text" name="MAIL_HOST" th:value="${MAIL_HOST}" required />
+                            </div>
+                            <div class="col-12 col-sm-6 mt-3 mt-sm-0">
+                                <label>Alias</label>
+                                <input class="form-control" type="text"
+                                    placeholder="Default is product name  (space are replace by dashes)"
+                                    th:field="*{alias}" minlength="3" maxlength="256" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <label class="mt-4">Cost</label>
+                                <input class="form-control" type="number" th:field="*{cost}" />
+                            </div>
+
+                            <div class="col-3">
+                                <label class="mt-4">Price</label>
+                                <input class="form-control" type="number" th:field="*{price}" />
+                            </div>
+
+                            <div class="col-3">
+                                <label class="mt-4">Discount</label>
+                                <input class="form-control" type="number" th:field="*{discountPercent}" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-6"
+                                style="display: flex; justify-content: space-between; justify-content: space-between; margin-top: 32px;">
+                                <div class="">
+                                    <label class="mt-4">Status</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" th:field="*{enabled}">
+                                        <label class="custom-control-label" for="customCheck1">Enable this
+                                            product</label>
+                                    </div>
+                                </div>
+
+                                <div class="" style="margin-right: 90px;">
+
+                                    <label class="mt-4">In stock</label>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" th:field="*{inStock}">
+                                        <label class="custom-control-label" for="customCheck1">Check this
+                                            product</label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+
+                                <label>Brand</label>
+                                <select th:field="*{brand}" class="js-select2 form-control" required>
+                                    <th:block th:each="brand : ${listBrands}">
+                                        <option th:value="${brand.id}">[[${brand.name}]]</option>
+                                    </th:block>
+                                </select>
+
+                                <label class="mt-4">Category</label>
+                                <th:block th:if="${product.category != null}">
+                                    <select th:field="*{category}" class="js-select2 form-control" multiple="multiple"
+                                        required>
+                                        <th:block th:each="cat : ${product.brand.categories}">
+                                            <option th:value="${cat.id}">[[${cat.name}]]</option>
+                                        </th:block>
+                                    </select>
+                                </th:block>
+
+
+                                <th:block th:if="${product.category == null}">
+                                    <select th:field="*{category}" class="js-select2 form-control" multiple="multiple"
+                                        required>
+                                        <th:block th:each="cat : ${listCategories}">
+                                            <option th:value="${cat.id}">[[${cat.name}]]</option>
+                                        </th:block>
+                                    </select>
+                                </th:block>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer class="footer pt-3  ">
+            <div class="container-fluid">
+                <div class="row align-items-center justify-content-lg-between">
+                    <div class="col-lg-6 mb-lg-0 mb-4">
+                        <div class="copyright text-center text-sm text-muted text-lg-start">
+                            ©
+                            <script>
+                                document.write(new Date().getFullYear())
+                            </script>,
+                            made with <i class="fa fa-heart"></i> by
+                            <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative
+                                Tim</a>
+                            for a better web.
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <ul class="nav nav-footer justify-content-center justify-content-lg-end">
+                            <li class="nav-item">
+                                <a href="https://www.creative-tim.com" class="nav-link text-muted"
+                                    target="_blank">Creative Tim</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted"
+                                    target="_blank">About
+                                    Us</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://www.creative-tim.com/blog" class="nav-link text-muted"
+                                    target="_blank">Blog</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted"
+                                    target="_blank">License</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</body>
+
+</html>

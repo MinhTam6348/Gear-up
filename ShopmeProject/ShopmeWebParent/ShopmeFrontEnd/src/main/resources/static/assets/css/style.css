@@ -6,3 +6,17 @@
 .btn-search{
   
 }
+
+.item-cart {
+  border-bottom-right-radius: 0.4rem;
+    border-bottom-left-radius: 0.4rem;
+}
+
+.btn-signup {
+  font-size: 0.7rem !important;
+  padding: 0.2rem 0.5rem;
+}
+
+.jus-end {
+  justify-content: end;
+}
