@@ -2,78 +2,80 @@
 <html xmlns:th="http://www.thymeleaf.org">
 
 <body>
-    <div th:fragment="mail_server" th:remove="tag">
+    <div th:fragment="mail_server">
 		<form class="" th:action="@{/settings/save_mail_server}" method="post">
-        <div class="row mt-4">
+            <div class="row mt-4">
 
-            <div class="col-12 col-lg-8 m-auto">
-                <div class="card">
-                    <div class="card-body">
-                        <h5 class="font-weight-bolder">Mail Server</h5>
-                        <div class="row">
-                            <div class="col-12 col-sm-6">
-                                <label>SMTP Server Host Name</label>
-                                <input class="form-control" type="text" name="MAIL_HOST"  th:value="${MAIL_HOST}" required />
-                            </div>
-                            <div class="col-12 col-sm-6 mt-3 mt-sm-0">
-                                <label>Port Number</label>
-                                <input class="form-control" type="text"
-                                    name="MAIL_PORT"  th:value="${MAIL_PORT}" required />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-12 col-sm-6">
-                                <label>UserName</label>
-                                <input class="form-control" type="text" name="MAIL_USERNAME"  th:value="${MAIL_USERNAME}" required />
-                            </div>
-                            <div class="col-12 col-sm-6 mt-3 mt-sm-0">
-                                <label>Password</label>
-                                <input class="form-control" type="text"
-                                    name="MAIL_PASSWORD" 
-                                    th:value="${MAIL_PASSWORD}" required />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-sm-6"
-                                style="display: flex; justify-content: space-between; justify-content: space-between; margin-top: 32px;">
-                                <div class="">
-									
-									<label class="mt-4">Server Authentication Required</label>
-                                    <select name="SMTP_AUTH" class="form-control">
-                                        <option value="true" th:selected="(${SMTP_AUTH} == 'true')">True</option>
-                                        <option value="false" th:selected="(${SMTP_AUTH} == 'false')">False</option>
-                                    </select>	
+                <div class="col-12 col-lg-8 m-auto">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="font-weight-bolder">Mail Server</h5>
+                            <div class="row">
+                                <div class="col-12 col-sm-6">
+                                    <label>SMTP Server Host Name</label>
+                                    <input class="form-control" type="text" name="MAIL_HOST"  th:value="${MAIL_HOST}" required />
                                 </div>
-        
-                                <div class="" style="margin-right: 90px;">
-        
-                                    <label class="mt-4">Server Requires Secured Connection (TLS)</label>
-                                    <select name="SMTP_SECURED" class="form-control">
-                                        <option value="true" th:selected="(${SMTP_SECURED} == 'true')">True</option>
-                                        <option value="false" th:selected="(${SMTP_SECURED} == 'false')">False</option>
-                                    </select>	
+                                <div class="col-12 col-sm-6 mt-3 mt-sm-0">
+                                    <label>Port Number</label>
+                                    <input class="form-control" type="text"
+                                        name="MAIL_PORT"  th:value="${MAIL_PORT}" required />
                                 </div>
                             </div>
-                            <div class="col-sm-6">
-        
-                                <label>From Email Address:</label>
-                                <input class="form-control" type="text"
-                                    name="MAIL_FROM" 
-                                    th:value="${MAIL_FROM}" required />
-        
-                                <label>Sender Name</label>
-                                <input class="form-control" type="text"
-                                    name="MAIL_SENDER_NAME" 
-                                    th:value="${MAIL_SENDER_NAME}" required />
-        
+                            <div class="row">
+                                <div class="col-12 col-sm-6">
+                                    <label>UserName</label>
+                                    <input class="form-control" type="text" name="MAIL_USERNAME"  th:value="${MAIL_USERNAME}" required />
+                                </div>
+                                <div class="col-12 col-sm-6 mt-3 mt-sm-0">
+                                    <label>Password</label>
+                                    <input class="form-control" type="text"
+                                        name="MAIL_PASSWORD" 
+                                        th:value="${MAIL_PASSWORD}" required />
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6"
+                                    style="display: flex; justify-content: space-between; justify-content: space-between; margin-top: 32px;">
+                                   <div class="row">
+                                    <div class="col-sm-6">
+                                        
+                                        <label class="mt-4" style="margin-bottom: 28px;">Server Authentication Required</label>
+                                        <select name="SMTP_AUTH" class="form-control">
+                                            <option value="true" th:selected="(${SMTP_AUTH} == 'true')">True</option>
+                                            <option value="false" th:selected="(${SMTP_AUTH} == 'false')">False</option>
+                                        </select>	
+                                    </div>
+            
+                                    <div class="col-sm-6" >
+            
+                                        <label class="mt-4">Server Requires Secured Connection (TLS)</label>
+                                        <select name="SMTP_SECURED" class="form-control">
+                                            <option value="true" th:selected="(${SMTP_SECURED} == 'true')">True</option>
+                                            <option value="false" th:selected="(${SMTP_SECURED} == 'false')">False</option>
+                                        </select>	
+                                    </div>
+                                   </div>
+                                </div>
+                                <div class="col-sm-6">
+            
+                                    <label>From Email Address:</label>
+                                    <input class="form-control" type="text"
+                                        name="MAIL_FROM" 
+                                        th:value="${MAIL_FROM}" required />
+            
+                                    <label>Sender Name</label>
+                                    <input class="form-control" type="text"
+                                        name="MAIL_SENDER_NAME" 
+                                        th:value="${MAIL_SENDER_NAME}" required />
+            
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-		<div class="col-md-12">
+		    <div class="col-md-12">
 			<div style="display: flex; justify-content: center; margin-top: 20px;">
 			  <div class="form-group">
 				<button style="width: 243px; padding: 0.7rem 2rem;" type="submit"
@@ -86,45 +88,6 @@
 			</div>
 
 		</form>
-        <footer class="footer pt-3  ">
-            <div class="container-fluid">
-                <div class="row align-items-center justify-content-lg-between">
-                    <div class="col-lg-6 mb-lg-0 mb-4">
-                        <div class="copyright text-center text-sm text-muted text-lg-start">
-                            ©
-                            <script>
-                                document.write(new Date().getFullYear())
-                            </script>,
-                            made with <i class="fa fa-heart"></i> by
-                            <a href="https://www.creative-tim.com" class="font-weight-bold" target="_blank">Creative
-                                Tim</a>
-                            for a better web.
-                        </div>
-                    </div>
-                    <div class="col-lg-6">
-                        <ul class="nav nav-footer justify-content-center justify-content-lg-end">
-                            <li class="nav-item">
-                                <a href="https://www.creative-tim.com" class="nav-link text-muted"
-                                    target="_blank">Creative Tim</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="https://www.creative-tim.com/presentation" class="nav-link text-muted"
-                                    target="_blank">About
-                                    Us</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="https://www.creative-tim.com/blog" class="nav-link text-muted"
-                                    target="_blank">Blog</a>
-                            </li>
-                            <li class="nav-item">
-                                <a href="https://www.creative-tim.com/license" class="nav-link pe-0 text-muted"
-                                    target="_blank">License</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </footer>
     </div>
 </body>
 

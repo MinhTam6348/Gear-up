@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource.AuthenticationType;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -15,6 +16,7 @@ import net.bytebuddy.utility.RandomString;
 
 
 @Service
+@Transactional
 public class CustomerService {
 
 	@Autowired private CustomerRepository customerRepo;
@@ -27,7 +29,7 @@ public class CustomerService {
 	
 	public void registerCustomer(Customer customer) {
 		encodePassword(customer);
-		customer.setEnabled(true);
+		customer.setEnabled(false);
 		customer.setCreatedTime(new Date());
 		
 		String randomCode = RandomString.make(64);

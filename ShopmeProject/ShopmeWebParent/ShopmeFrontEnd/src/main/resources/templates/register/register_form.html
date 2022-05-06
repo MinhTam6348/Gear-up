@@ -255,7 +255,7 @@
       params = {email: CustomerEmail, _csrf: csrfValue};
 
       $.post(url, params, function(response) {
-        if(response == "Ok") {
+        if(response == "OK") {
           form.submit();
         } else if (response == "Duplicated") {
           showModalNotification("Warnning", "Email already exist: " +" "+ CustomerEmail);
