@@ -163,31 +163,31 @@ public class OrderRepositoryTests {
 		assertThat(result).isNotPresent();
 	}
 	
-//	@Test
-//	public void testUpdateOrderTracks() {
-//		Integer orderId = 19;
-//		Order order = repo.findById(orderId).get();
-//		
-//		OrderTrack newTrack = new OrderTrack();
-//		newTrack.setOrder(order);
-//		newTrack.setUpdatedTime(new Date());
-//		newTrack.setStatus(OrderStatus.NEW);
-//		newTrack.setNotes(OrderStatus.NEW.defaultDescription());
-//
-//		OrderTrack processingTrack = new OrderTrack();
-//		processingTrack.setOrder(order);
-//		processingTrack.setUpdatedTime(new Date());
-//		processingTrack.setStatus(OrderStatus.PROCESSING);
-//		processingTrack.setNotes(OrderStatus.PROCESSING.defaultDescription());
-//		
-//		List<OrderTrack> orderTracks = order.getOrderTracks();
-//		orderTracks.add(newTrack);
-//		orderTracks.add(processingTrack);
-//		
-//		Order updatedOrder = repo.save(order);
-//		
-//		assertThat(updatedOrder.getOrderTracks()).hasSizeGreaterThan(1);
-//	}
+	@Test
+	public void testUpdateOrderTracks() {
+		Integer orderId = 4;
+		Order order = repo.findById(orderId).get();
+		
+		OrderTrack newTrack = new OrderTrack();
+		newTrack.setOrder(order);
+		newTrack.setUpdatedTime(new Date());
+		newTrack.setStatus(OrderStatus.PICKED);
+		newTrack.setNotes(OrderStatus.PICKED.defaultDescription());
+
+		OrderTrack processingTrack = new OrderTrack();
+		processingTrack.setOrder(order);
+		processingTrack.setUpdatedTime(new Date());
+		processingTrack.setStatus(OrderStatus.PROCESSING);
+		processingTrack.setNotes(OrderStatus.PROCESSING.defaultDescription());
+		
+		List<OrderTrack> orderTracks = order.getOrderTracks();
+		orderTracks.add(newTrack);
+		orderTracks.add(processingTrack);
+		
+		Order updatedOrder = repo.save(order);
+		
+		assertThat(updatedOrder.getOrderTracks()).hasSizeGreaterThan(1);
+	}
 //	
 //	@Test
 //	public void testAddTrackWithStatusNewToOrder() {

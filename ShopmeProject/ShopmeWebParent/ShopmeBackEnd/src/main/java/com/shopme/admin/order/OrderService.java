@@ -35,7 +35,7 @@ public class OrderService {
 		} else {
 			sort = Sort.by(sortField);
 		}
-		
+
 		sort = sortDir.equals("asc") ? sort.ascending() : sort.descending();
 		Pageable pageable = PageRequest.of(pageNum - 1, ORDERS_PER_PAGE, sort);
 		
@@ -66,11 +66,7 @@ public class OrderService {
 		
 		orderRepo.deleteById(id);
 	}
-//
-//	public List<Country> listAllCountries() {
-//		return countryRepo.findAllByOrderByNameAsc();
-//	}
-//
+	
 //	public void save(Order orderInForm) {
 //		Order orderInDB = orderRepo.findById(orderInForm.getId()).get();
 //		orderInForm.setOrderTime(orderInDB.getOrderTime());

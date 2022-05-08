@@ -9,6 +9,7 @@ import java.util.Set;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +26,7 @@ import com.shopme.common.entity.order.Order;
 import com.shopme.common.entity.order.OrderDetail;
 import com.shopme.common.entity.order.OrderStatus;
 import com.shopme.common.entity.order.OrderTrack;
+import com.shopme.common.entity.Customer;
 import com.shopme.common.entity.Product;
 import com.shopme.common.entity.setting.Setting;
 import com.shopme.common.exception.OrderNotFoundException;
@@ -45,15 +47,10 @@ public class OrderController {
 	public String listByPage(
 			@PagingAndSortingParam(listName = "listOrders", moduleURL = "/orders") PagingAndSortingHelper helper,
 			@PathVariable(name = "pageNum") int pageNum,
-			HttpServletRequest request,
-			@AuthenticationPrincipal ShopmeUserDetails loggedUser) {
-
+			HttpServletRequest request) {
+		
 		orderService.listByPage(pageNum, helper);
 		loadCurrencySetting(request);
-		
-//		if (!loggedUser.hasRole("Admin") && !loggedUser.hasRole("Salesperson") && loggedUser.hasRole("Shipper")) {
-//			return "orders/orders_shipper";
-//		}
 		
 		return "orders/orders";
 	}
@@ -93,26 +90,22 @@ public class OrderController {
 		return defaultRedirectURL;
 	}
 	
-//	@GetMapping("/orders/edit/{id}")
-//	public String editOrder(@PathVariable("id") Integer id, Model model, RedirectAttributes ra,
-//			HttpServletRequest request) {
-//		try {
-//			Order order = orderService.get(id);;
-//			
-//			List<Country> listCountries = orderService.listAllCountries();
-//			
-//			model.addAttribute("pageTitle", "Edit Order (ID: " + id + ")");
-//			model.addAttribute("order", order);
-//			model.addAttribute("listCountries", listCountries);
-//			
-//			return "orders/order_form";
-//			
-//		} catch (OrderNotFoundException ex) {
-//			ra.addFlashAttribute("message", ex.getMessage());
-//			return defaultRedirectURL;
-//		}
-//		
-//	}	
+	@GetMapping("/orders/edit/{id}")
+	public String editOrder(@PathVariable("id") Integer id, Model model, RedirectAttributes ra,
+			HttpServletRequest request) {
+		try {
+			Order order = orderService.get(id);;	
+			model.addAttribute("pageTitle", "Edit Order (ID: " + id + ")");
+			model.addAttribute("order", order);
+			
+			return "orders/order_form";
+			
+		} catch (OrderNotFoundException ex) {
+			ra.addFlashAttribute("message", ex.getMessage());
+			return defaultRedirectURL;
+		}
+		
+	}	
 //	
 //	@PostMapping("/order/save")
 //	public String saveOrder(Order order, HttpServletRequest request, RedirectAttributes ra) {
